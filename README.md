@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains numerical algorithms implemented in C++ for Cal Poly Pomona's MAT 4401.
+This repository contains numerical algorithms implemented in C++ for Cal Poly Pomona's MAT 4010.
 
 # Algorithms
 
