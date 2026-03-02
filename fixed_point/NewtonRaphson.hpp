@@ -10,14 +10,14 @@ public:
         this->f = f;                      // Polynomial function
         this->g = g;                      // Derivative of the polynomial function
         this->p = p;                      // Starting estimate of the fixed point
-        this->maxiter = maxiter;          // The maximum amount of iterations for the fixed point algorithm
+        this->maxiter = maxiter;          // The maximum amount of iterations for the algorithm
         this->tol = tol;                  // Error tolerance   
         this->diagnostics = diagnostics;  // Convergence diagnostics   
     }
 
     double solver() {
         /*
-        Method that estimates the fixed point.
+        Newton-Raphson method that estimates a fixed point.
         */
         std::vector<double> p_sequence;
 
@@ -30,9 +30,9 @@ public:
             p = p - f(p) / g(p);
 
             // Early convergence check
-            if (std::abs(p - p_sequence[i]) < tol) {
+            if (std::abs(p - p_sequence[i]) < tol && i < 2) {
                 if (diagnostics)
-                    std::cout << "Fixed point iteration converged early in " << i << " iterations: " << p << "\n";
+                    std::cout << "Newton-Raphson method converged early in " << i << " iterations: " << p << "\n";
                 return p;
             }
 
@@ -50,7 +50,7 @@ public:
 
                     if (std::abs(error) < tol) {
                         if (diagnostics) {
-                            std::cout << "Fixed point iteration converged linearly in " << i << " iterations.\n"; 
+                            std::cout << "Newton-Raphson method converged linearly in " << i << " iterations.\n"; 
                             std::cout << "Fixed point: " << p << "\n";
                             std::cout << "Order of convergence: " << alpha << "\n";
                         }
@@ -62,7 +62,7 @@ public:
 
                     if (std::abs(error) < tol) {
                         if (diagnostics) {
-                            std::cout << "Fixed point iteration converged superlinearly in " << i << " iterations.\n"; 
+                            std::cout << "Newton-Raphson method converged superlinearly in " << i << " iterations.\n"; 
                             std::cout << "Fixed point: " << p << "\n";
                             std::cout << "Order of convergence: " << alpha << "\n";
                         }
@@ -73,7 +73,7 @@ public:
         }
         
         if (diagnostics)
-            std::cout << "Fixed point iteration did not converge in " << maxiter << " iterations.\n";
+            std::cout << "Newton-Raphson method did not converge in " << maxiter << " iterations.\n";
 
         return 0;
     }
