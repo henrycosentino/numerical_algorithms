@@ -11,7 +11,7 @@ double g(double x) {
 }
 
 int main() {
-    NewtonRaphson nr(f, g, 2, 1000, 1e-10, true);
+    NewtonRaphson nr(f, g, 10, 1000, 1e-10, true);
     nr.solver();
     return 0;
 }

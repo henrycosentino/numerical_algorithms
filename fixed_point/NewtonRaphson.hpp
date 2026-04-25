@@ -8,7 +8,7 @@ class NewtonRaphson
 public:
     NewtonRaphson(double (*f)(double), double (*g)(double), double p, int maxiter = 1000, double tol = 1e-10, bool diagnostics = false) {
         this->f = f;                      // Polynomial function
-        this->g = g;                      // Derivative of the polynomial function
+        this->g = g;                      // First derivative of the polynomial function
         this->p = p;                      // Starting estimate of the fixed point
         this->maxiter = maxiter;          // The maximum amount of iterations for the algorithm
         this->tol = tol;                  // Error tolerance   
@@ -17,7 +17,7 @@ public:
 
     double solver() {
         /*
-        Newton-Raphson method that estimates a fixed point.
+        Newton-Raphson method for fixed point estimation.
         */
         std::vector<double> p_sequence;
 
