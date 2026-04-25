@@ -9,13 +9,14 @@ std::vector<std::vector<long double>> A = {
     {-1, 3}
 };
 
-std::vector<std::vector<long double>> B = {
-    {4, 1, 2},
-    {1, 3, 0},
-    {2, 0, 5}
+std::vector<std::vector<long double>> Q = {
+    // Q matrix for a Markov Process, eigenvalue of 0 is guranteed!
+    {-3, 3, 0},
+    {3, -5, 2},
+    {0, 2, -2}
 };
 
-std::vector<std::vector<std::vector<long double>>> matrices = {A, B};
+std::vector<std::vector<std::vector<long double>>> matrices = {A, Q};
 
 
 int main() {
