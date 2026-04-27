@@ -6,10 +6,10 @@
 #include <numeric>
 #include <tuple>
 
-class NewtonRaphson
+class NewtonsMethod
 {
 public:
-    NewtonRaphson(std::vector<std::vector<long double>> A_in, int maxiter = 1000, long double tol = 1e-15, bool info = true) {
+    NewtonsMethod(std::vector<std::vector<long double>> A_in, int maxiter = 1000, long double tol = 1e-15, bool verbose = true) {
         // Check: Matrix A empty
         if (A_in.empty() || A_in[0].empty()) {
             throw std::invalid_argument("Matrix A cannot be empty.");
@@ -35,16 +35,20 @@ public:
         this->A = A_in;                     // Matrix, expects symmetric (n x n)               
         this->maxiter = maxiter;            // Maximum number of iterations
         this->tol = tol;                    // Error tolerance
-        this->info = info;                  // If true outputs convergence, error, eigenvalue, and eigenvector information    
+        this->verbose = verbose;            // If true outputs convergence, error, eigenvalue, and eigenvector information    
     }
 
     std::pair<std::vector<long double>, long double> solver() {
         int A_n = A.size();
         int J_size = A_n + 1;
 
+        bool converged = false;
+
+        std::vector<long double> E;
+
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<long double> dis(1.0, 10.0);
+        std::uniform_real_distribution<long double> dis(1.0, 20.0);
 
         // Initialize a 'guess' for vector V, a vector with random values
         std::vector<long double> V(A_n);
@@ -90,13 +94,16 @@ public:
             F[A_n] = (0.5 * sum_sq_v) - 1.0;
 
             // 2: Convergence check (using infinity norm)
-            long double max_f = 0.0;
+            long double max_F = 0.0;
             for (const auto& val : F) {
-                max_f = std::max(max_f, std::abs(val));
+                max_F = std::max(max_F, std::abs(val));
             }
 
-            if (max_f < tol) {
-                if (info == true) {
+            E.push_back(max_F);
+
+            if (max_F < tol) {
+                converged = true;
+                if (verbose == true) {
                     std::cout << "Converged in " << k << " iterations" << std::endl;
                 }
                 break;
@@ -176,26 +183,39 @@ public:
 
         }
 
-        if (info == true) {
+        if (verbose == true && converged == true) {
             std::cout << "Eigenvalue: " << lambda << std::endl;
-            std::cout << "Eigenvector: (";
             
+            std::cout << "Eigenvector: (";
             for (size_t i = 0; i < V.size(); ++i) {
                 std::cout << V[i];
                 if (i < V.size() - 1) {
                     std::cout << ", ";
                 }
             }
-    
             std::cout << ")" << std::endl;
+            
+            std::cout << "Error Sequence: ";
+            for (size_t i = 0; i < E.size(); ++i) {
+                std::cout << E[i];
+                if (i < E.size() - 1) {
+                    std::cout << ", ";
+                }
+            }
+    
         }
 
-        return {V, lambda};
+        if (converged == true) {
+            return {V, lambda};
+        } else {
+            std::cout << "Newton's method failed to converge in " << maxiter << " iterations" << std::endl;
+            return {{}, std::numeric_limits<long double>::quiet_NaN()};
+        }
     }
 
 private:
     std::vector<std::vector<long double>> A;
     int maxiter;
     long double tol;
-    bool info;
+    bool verbose;
 };

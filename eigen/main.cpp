@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-#include "NewtonRaphson.hpp"
+#include "NewtonsMethod.hpp"
 
 
 std::vector<std::vector<long double>> A = {
@@ -26,8 +26,8 @@ int main() {
     for (int i = 0; i < 2; i++) {
         std::cout << "Matrix " << i+1 << ": " << std::endl;
 
-        NewtonRaphson nr(matrices[i], 10000, 1e-15, true);
-        nr.solver();
+        NewtonsMethod nm(matrices[i], 1000, 1e-15, true);
+        nm.solver();
 
         std::cout << "" << std::endl;
     }
