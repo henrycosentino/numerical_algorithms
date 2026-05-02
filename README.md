@@ -8,4 +8,4 @@ This repository contains numerical algorithms implemented in C++ for Cal Poly Po
 
 2. [Fixed Point Method](https://github.com/henrycosentino/numerical_algorithms/blob/main/fixed_point/NewtonRaphson.hpp): A fixed point method for generic polynomials, implemented as a C++ `class` with dynamic error analysis.
 
-3. [Eigenvalue Methods](https://github.com/henrycosentino/numerical_algorithms/blob/main/eigen): Newton's method adapted to non-linear systems to solve for eigenvalues and eigenvectors, and the Power method to solve for maximum eigenvalues. 
+3. [Eigenvalue Methods](https://github.com/henrycosentino/numerical_algorithms/blob/main/eigen): Newton's method adapted to non-linear systems to solve for eigenvalues and eigenvectors, and the Power method to solve for the maximum eigenvalue. 
