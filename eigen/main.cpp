@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <vector>
 #include "NewtonsMethod.hpp"
+#include "PowerMethod.hpp"
 
 
 std::vector<std::vector<long double>> A = {
@@ -29,7 +30,14 @@ int main() {
         NewtonsMethod nm(matrices[i], 1000, 1e-15, true);
         nm.solver();
 
-        std::cout << "" << std::endl;
+        std::cout << "\n" << std::endl;
     }
+
+    std::cout << "\n" << std::endl;
+
+    std::cout << "--- Power Method for Maximum Eigenvalues ---" << std::endl;
+    PowerMethod pm(Q, 1000, 1e-15, true);
+    pm.solver();
+
     return 0;
 }
