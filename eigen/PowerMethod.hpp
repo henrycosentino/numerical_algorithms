@@ -34,7 +34,7 @@ public:
         this->A = A_in;                     // Matrix, expects symmetric (n x n)               
         this->maxiter = maxiter;            // Maximum number of iterations
         this->tol = tol;                    // Error tolerance
-        this->verbose = verbose;            // If true outputs convergence, error, and eigenvalue information    
+        this->verbose = verbose;            // If true outputs convergence, error, and eigenvalue information   
     }
 
     long double _l2_norm(std::vector<long double> X) {
@@ -96,6 +96,7 @@ public:
     }
 
     long double solver() {
+
         int n = A.size();
 
         bool converged = false;
@@ -131,9 +132,11 @@ public:
                 }
                 break;
             }
-
+            
             X = _unit_vec(Y);
+        
         }
+
         
         if (verbose == true && converged == true) {
             std::cout << "Eigenvalue: " << lambda << std::endl;
@@ -151,10 +154,9 @@ public:
         if (converged == true) {
             return lambda;
         } else {
-            std::cout << "Newton's method failed to converge in " << maxiter << " iterations" << std::endl;
+            std::cout << "The Power Method failed to converge in " << maxiter << " iterations" << std::endl;
             return std::numeric_limits<long double>::quiet_NaN();
         }
-
     }
 
 private:
@@ -162,5 +164,4 @@ private:
     int maxiter;
     long double tol;
     bool verbose;
-
 };

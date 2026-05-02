@@ -38,6 +38,7 @@ int main() {
     std::cout << "--- Power Method for Maximum Eigenvalues ---" << std::endl;
     PowerMethod pm(Q, 1000, 1e-15, true);
     pm.solver();
+    std::cout << "\n" << std::endl;
 
     return 0;
 }
