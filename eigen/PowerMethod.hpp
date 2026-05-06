@@ -86,6 +86,7 @@ public:
     }
 
     long double _calc_residual(std::vector<long double> Y, std::vector<long double> X, long double lambda) {
+        // Calculates the residual, returning a scalar
         int n = Y.size();
         std::vector<long double> R(n);
 
